@@ -8,7 +8,8 @@ public class DogTrainPlatformImpl implements TrainPlatform<Dog> {
     private static final boolean IS_TRAINED = true;
 
     @Override
-    public void toTrain(Dog dog) {
-        dog.setTrained(IS_TRAINED);
+    public Dog toTrain(Dog dog) {
+        // some code
+        return dog;
     }
 }
