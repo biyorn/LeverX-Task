@@ -38,6 +38,18 @@ public class Dog {
         return isTrained;
     }
 
+    public void setHealthy(boolean healthy) {
+        isHealthy = healthy;
+    }
+
+    public void setFed(boolean fed) {
+        isFed = fed;
+    }
+
+    public void setTrained(boolean trained) {
+        isTrained = trained;
+    }
+
     public static Builder builder() {
         return new Dog().new Builder();
     }

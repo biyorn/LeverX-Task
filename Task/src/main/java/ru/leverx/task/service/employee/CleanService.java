@@ -1,4 +1,4 @@
-package ru.leverx.task.service.train.employee;
+package ru.leverx.task.service.employee;
 
 public interface CleanService<T> {
 
