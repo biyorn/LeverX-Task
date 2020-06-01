@@ -1,15 +1,28 @@
 package com.leverx.blog.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import com.leverx.blog.dto.UserEntityDTO;
+import com.leverx.blog.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("users")
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class UserController {
 
-    @GetMapping
-    public String hello() {
-        return "Hello World!";
+    private final UserService userService;
+
+    @PostMapping
+    public ResponseEntity<?> signIn(@RequestBody UserEntityDTO userEntityDTO) {
+        userEntityDTO = userService.signIn(userEntityDTO);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userEntityDTO);
     }
 }
