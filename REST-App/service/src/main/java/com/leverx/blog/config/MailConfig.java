@@ -3,6 +3,7 @@ package com.leverx.blog.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
@@ -10,7 +11,7 @@ import java.util.Properties;
 @Configuration
 public class MailConfig {
 
-    @Value("${mail.smtps.host}")
+    @Value("${mail.smtp.host}")
     private String host;
     @Value("${mail.username}")
     private String username;
@@ -36,6 +37,11 @@ public class MailConfig {
 
         addMailProperties(mailSender);
         return mailSender;
+    }
+
+    @Bean
+    public SimpleMailMessage simpleMailMessage() {
+        return new SimpleMailMessage();
     }
 
     public void addMailProperties(JavaMailSenderImpl mailSender) {

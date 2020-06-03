@@ -1,5 +1,6 @@
 package com.leverx.blog.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -12,12 +13,16 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 public class RedisConfig {
 
     private static final String REDIS_KEY = "code";
+    @Value("${redis.host.name}")
+    private String hostName;
+    @Value("${redis.port}")
+    private int port;
 
     @Bean
     public JedisConnectionFactory redisConnectionFactory() {
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();
-        config.setHostName("localhost");
-        config.setPort(6379);
+        config.setHostName(hostName);
+        config.setPort(port);
         return new JedisConnectionFactory(config);
     }
 

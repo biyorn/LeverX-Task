@@ -13,5 +13,5 @@ public class UserAuth {
 
     @Id
     private String id;
-    private String code;
+    private String email;
 }

@@ -1,13 +1,16 @@
 package com.leverx.blog.service.impl;
 
 import com.leverx.blog.dto.UserEntityDTO;
+import com.leverx.blog.entity.UserAuth;
 import com.leverx.blog.entity.UserEntity;
+import com.leverx.blog.exception.FailedAddObjectException;
 import com.leverx.blog.mapper.CommonModelMapper;
 import com.leverx.blog.repository.UserRepository;
 import com.leverx.blog.repository.redis.RedisRepository;
 import com.leverx.blog.service.MailService;
 import com.leverx.blog.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +28,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntityDTO signUp(UserEntityDTO userEntityDTO) {
         UserEntity userEntity = userModelMapper.toEntity(userEntityDTO);
-        addCreatedAt(userEntity);
-        mailService.sendAuthCode(userEntity.getEmail());
+        String email = userEntity.getEmail();
+        userRepository.findByEmail(email)
+                .ifPresentOrElse(user -> {
+                    throw new FailedAddObjectException("Email [" + email + "] already exists");
+                }, () -> {
+                    addCreatedAt(userEntity);
+                    UserAuth userAuth = new UserAuth(RandomStringUtils.randomAlphanumeric(10),
+                            userEntity.getEmail());
+                    mailService.sendAuthCode(userAuth, "Authorization");
+                    redisRepository.save(userAuth);
+                });
         return userModelMapper.toDto(userRepository.save(userEntity));
     }
 
+    @Override
+    public void confirmUserEmail(String code) {
+        redisRepository.findById(code)
+                .ifPresentOrElse(userAuth -> {
+                    userRepository.setActive(true, userAuth.getEmail());
+                }, () -> {
+                    throw new FailedAddObjectException("Nothing");
+                });
+    }
 
     private UserEntity addCreatedAt(UserEntity userEntity) {
         userEntity.setCreatedAt(LocalDateTime.now());

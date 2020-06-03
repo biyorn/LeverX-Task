@@ -6,4 +6,6 @@ public interface UserService {
 
     UserEntityDTO signUp(UserEntityDTO userEntityDTO);
 
+    void confirmUserEmail(String code);
+
 }
