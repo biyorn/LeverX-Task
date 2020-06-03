@@ -29,4 +29,6 @@ public class UserEntity {
     private String email;
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+    @Column(name = "active", nullable = false)
+    private boolean isActive;
 }

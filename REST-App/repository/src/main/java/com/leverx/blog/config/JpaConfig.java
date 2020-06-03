@@ -3,7 +3,6 @@ package com.leverx.blog.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -19,8 +18,6 @@ import java.util.Properties;
 @Configuration
 @EnableJpaRepositories(basePackages = "com.leverx.blog.repository")
 @EnableTransactionManagement
-//@ComponentScan("com.leverx.blog")
-@PropertySource("classpath:application.properties")
 public class JpaConfig {
 
     @Value("${spring.datasource.driver-class-name}")
