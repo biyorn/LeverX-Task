@@ -4,6 +4,7 @@ import com.leverx.blog.dto.UserEntityDTO;
 import com.leverx.blog.entity.UserAuth;
 import com.leverx.blog.entity.UserEntity;
 import com.leverx.blog.exception.FailedAddObjectException;
+import com.leverx.blog.exception.FailedUpdateObjectException;
 import com.leverx.blog.mapper.CommonModelMapper;
 import com.leverx.blog.repository.UserRepository;
 import com.leverx.blog.repository.redis.RedisRepository;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class UserServiceImpl implements UserService {
 
+    private static final boolean EMAIL_CONFIRMED = true;
     private final CommonModelMapper<UserEntity, UserEntityDTO> userModelMapper;
     private final UserRepository userRepository;
     private final RedisRepository redisRepository;
@@ -44,12 +46,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void confirmUserEmail(String code) {
-        redisRepository.findById(code)
-                .ifPresentOrElse(userAuth -> {
-                    userRepository.setActive(true, userAuth.getEmail());
-                }, () -> {
-                    throw new FailedAddObjectException("Nothing");
-                });
+        redisRepository.findById(code).ifPresentOrElse(userAuth -> {
+            userRepository.findByEmail(userAuth.getEmail())
+                    .ifPresent(user -> {
+                        user.setActive(EMAIL_CONFIRMED);
+                        userRepository.save(user);
+                    });
+        }, () -> {
+            throw new FailedUpdateObjectException("This code is not exist");
+        });
     }
 
     private UserEntity addCreatedAt(UserEntity userEntity) {

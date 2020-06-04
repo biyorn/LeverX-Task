@@ -11,20 +11,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Validator;
-
 @RestController
 @RequestMapping("users")
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class UserController {
 
     private final UserService userService;
-    private final Validator validator;
 
     @PostMapping
-    public ResponseEntity<?> signUp(@RequestBody UserEntityDTO userEntityDTO) {
-//        Set<ConstraintViolation<UserEntityDTO>> violations = validator.validate(userEntityDTO);
-//        violations.forEach(ConstraintViolation::getMessage);
+    public ResponseEntity<UserEntityDTO> signUp(@RequestBody UserEntityDTO userEntityDTO) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userService.signUp(userEntityDTO));

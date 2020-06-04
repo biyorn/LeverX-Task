@@ -21,5 +21,6 @@ public class UserEntityDTO {
     private String email;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime createdAt;
+    private boolean isActive;
 
 }
