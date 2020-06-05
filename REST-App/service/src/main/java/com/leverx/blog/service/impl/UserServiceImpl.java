@@ -1,5 +1,6 @@
 package com.leverx.blog.service.impl;
 
+import com.leverx.blog.dto.ResetPasswordEntity;
 import com.leverx.blog.dto.UserEntityDTO;
 import com.leverx.blog.entity.UserAuth;
 import com.leverx.blog.entity.UserEntity;
@@ -16,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+
+// Need refactor of code
 
 @Service
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
@@ -55,6 +58,28 @@ public class UserServiceImpl implements UserService {
         }, () -> {
             throw new FailedUpdateObjectException("This code is not exist");
         });
+    }
+
+    // Rename this method
+    @Override
+    public void forgotPassword(ResetPasswordEntity resetPasswordEntity) {
+        // check, is user exist?
+        UserAuth userAuth = new UserAuth(RandomStringUtils.randomAlphanumeric(10),
+                resetPasswordEntity.getEmail());
+        redisRepository.save(userAuth);
+        mailService.sendAuthCode(userAuth, "Password reset");
+    }
+
+    // Maybe need to rename this method
+    @Override
+    public void reset(ResetPasswordEntity resetPasswordEntity) {
+        UserAuth userAuth = redisRepository.findById(resetPasswordEntity.getCode())
+                .orElseThrow(() -> new RuntimeException("This code is invalid"));
+        userRepository.findByEmail(userAuth.getEmail())
+                .ifPresent(user -> {
+                    user.setPassword(resetPasswordEntity.getPassword());
+                    userRepository.save(user);
+                });
     }
 
     private UserEntity addCreatedAt(UserEntity userEntity) {
