@@ -79,7 +79,7 @@ public class AuthenticationController {
     @PostMapping("/auth/reset")
     public void reset(@RequestBody ResetPasswordEntity resetPasswordEntity) {
         resetPasswordEntity.setPassword(passwordEncoder.encode(resetPasswordEntity.getPassword()));
-        userService.reset(resetPasswordEntity);
+        userService.resetPassword(resetPasswordEntity);
     }
 
     // What to return and how to return?

@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
-public class MailServiceImpl implements MailService {
+public class UserAuthMailServiceImpl implements MailService<UserAuth> {
 
     private final JavaMailSender mailSender;
     private final SimpleMailMessage message;
 
     @Override
-    public void sendAuthCode(UserAuth userAuth, String subject) {
+    public void sendMessage(UserAuth userAuth) {
         message.setTo(userAuth.getEmail());
-        message.setSubject(subject);
+        message.setSubject(userAuth.getSubject());
         message.setText(userAuth.getId());
         mailSender.send(message);
     }

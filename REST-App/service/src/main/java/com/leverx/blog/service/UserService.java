@@ -11,6 +11,6 @@ public interface UserService {
 
     void forgotPassword(ResetPasswordEntity resetPasswordEntity);
 
-    void reset(ResetPasswordEntity resetPasswordEntity);
+    void resetPassword(ResetPasswordEntity resetPasswordEntity);
 
 }

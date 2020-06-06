@@ -1,12 +1,14 @@
 package com.leverx.blog.entity;
 
+import lombok.Builder;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.Id;
 
-@Value
+@Builder
+@Getter
 @RedisHash("userAuth")
 @RequiredArgsConstructor
 public class UserAuth {
@@ -14,4 +16,5 @@ public class UserAuth {
     @Id
     private String id;
     private String email;
+    private String subject;
 }
