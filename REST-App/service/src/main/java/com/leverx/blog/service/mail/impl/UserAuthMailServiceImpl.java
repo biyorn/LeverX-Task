@@ -1,7 +1,7 @@
-package com.leverx.blog.service.impl;
+package com.leverx.blog.service.mail.impl;
 
 import com.leverx.blog.entity.UserAuth;
-import com.leverx.blog.service.MailService;
+import com.leverx.blog.service.mail.MailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

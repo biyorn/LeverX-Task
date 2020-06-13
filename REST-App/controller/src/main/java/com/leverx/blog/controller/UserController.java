@@ -1,6 +1,6 @@
 package com.leverx.blog.controller;
 
-import com.leverx.blog.service.UserService;
+import com.leverx.blog.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

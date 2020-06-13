@@ -1,4 +1,4 @@
-package com.leverx.blog.security.token.jwt;
+package com.leverx.blog.security.filter;
 
 import com.leverx.blog.security.token.util.TokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;

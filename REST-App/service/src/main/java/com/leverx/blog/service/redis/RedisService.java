@@ -1,4 +1,4 @@
-package com.leverx.blog.service;
+package com.leverx.blog.service.redis;
 
 import com.leverx.blog.entity.UserAuth;
 

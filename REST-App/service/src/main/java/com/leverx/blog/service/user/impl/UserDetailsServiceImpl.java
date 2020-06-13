@@ -1,4 +1,4 @@
-package com.leverx.blog.service.impl;
+package com.leverx.blog.service.user.impl;
 
 import com.leverx.blog.entity.UserEntity;
 import com.leverx.blog.repository.UserRepository;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private static final String ROLE_USER = "ROLE_USER";
+    private static final String ROLE_USER = "USER";
 
     private final UserRepository userRepository;
 

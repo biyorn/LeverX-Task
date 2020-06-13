@@ -1,6 +1,6 @@
-package com.leverx.blog.service;
+package com.leverx.blog.service.user;
 
-import com.leverx.blog.dto.ResetPasswordEntity;
+import com.leverx.blog.model.ResetPasswordEntity;
 import com.leverx.blog.dto.UserEntityDTO;
 
 public interface UserService {

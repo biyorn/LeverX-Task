@@ -8,8 +8,6 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
-import java.util.concurrent.TimeUnit;
-
 @Configuration
 @EnableRedisRepositories(basePackages = "com.leverx.blog.repository.redis")
 public class RedisConfig {
@@ -33,7 +31,7 @@ public class RedisConfig {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory());
         template.setEnableTransactionSupport(true);
-        template.expire(REDIS_KEY, 24, TimeUnit.HOURS);
+        //template.expire(REDIS_KEY, 24, TimeUnit.HOURS);
         return template;
     }
 }

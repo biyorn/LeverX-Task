@@ -1,6 +1,6 @@
 package com.leverx.blog.security.config;
 
-import com.leverx.blog.security.token.jwt.JwtRequestFilter;
+import com.leverx.blog.security.filter.JwtRequestFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,23 +24,27 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         securedEnabled = true,
         jsr250Enabled = true
 )
+//@EnableGlobalAuthentication
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
     private final JwtRequestFilter jwtRequestFilter;
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity security) throws Exception {
-        security.csrf().disable()
-                .authorizeRequests().antMatchers("/auth", "/sign-up").anonymous()
-               // .antMatchers(HttpMethod.GET, "/some end point for all").permitAll()
-                .and()
+        security
+                //.httpBasic().and()
+                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/auth").anonymous()
+//                .anyRequest().authenticated()
+                //.and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

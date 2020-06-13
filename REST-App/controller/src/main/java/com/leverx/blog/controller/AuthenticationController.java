@@ -1,13 +1,13 @@
 package com.leverx.blog.controller;
 
-import com.leverx.blog.dto.ResetPasswordEntity;
+import com.leverx.blog.model.ResetPasswordEntity;
 import com.leverx.blog.dto.UserEntityDTO;
 import com.leverx.blog.exception.UserException;
 import com.leverx.blog.security.token.jwt.JwtRequest;
 import com.leverx.blog.security.token.jwt.JwtResponse;
 import com.leverx.blog.security.token.util.TokenUtil;
-import com.leverx.blog.service.RedisService;
-import com.leverx.blog.service.UserService;
+import com.leverx.blog.service.redis.RedisService;
+import com.leverx.blog.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

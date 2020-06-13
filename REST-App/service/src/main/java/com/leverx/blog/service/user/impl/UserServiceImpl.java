@@ -1,6 +1,6 @@
-package com.leverx.blog.service.impl;
+package com.leverx.blog.service.user.impl;
 
-import com.leverx.blog.dto.ResetPasswordEntity;
+import com.leverx.blog.model.ResetPasswordEntity;
 import com.leverx.blog.dto.UserEntityDTO;
 import com.leverx.blog.entity.UserAuth;
 import com.leverx.blog.entity.UserEntity;
@@ -10,8 +10,8 @@ import com.leverx.blog.exception.NotFoundObjectException;
 import com.leverx.blog.mapper.CommonModelMapper;
 import com.leverx.blog.repository.UserRepository;
 import com.leverx.blog.repository.redis.RedisRepository;
-import com.leverx.blog.service.MailService;
-import com.leverx.blog.service.UserService;
+import com.leverx.blog.service.mail.MailService;
+import com.leverx.blog.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
