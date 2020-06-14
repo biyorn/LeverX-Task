@@ -16,6 +16,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ArticleSpecification implements Specification<Article> {
 
+    private static final int INITIAL_VALUE = 0;
     private static final String TITLE = "title";
     private static final String USER = "userEntity";
     private final SearchCriteria criteria;
@@ -28,7 +29,7 @@ public class ArticleSpecification implements Specification<Article> {
             predicates.add(builder.equal(root.get(TITLE), title));
         }
         int authorId = criteria.getAuthor();
-        if(authorId > 0) {
+        if(authorId > INITIAL_VALUE) {
             predicates.add(builder.equal(root.get(USER), authorId));
         }
         query.where(predicates.toArray(new Predicate[]{}));

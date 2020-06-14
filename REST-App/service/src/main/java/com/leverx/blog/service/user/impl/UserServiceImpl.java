@@ -1,6 +1,5 @@
 package com.leverx.blog.service.user.impl;
 
-import com.leverx.blog.model.ResetPasswordEntity;
 import com.leverx.blog.dto.UserEntityDTO;
 import com.leverx.blog.entity.UserAuth;
 import com.leverx.blog.entity.UserEntity;
@@ -8,6 +7,7 @@ import com.leverx.blog.exception.FailedAddObjectException;
 import com.leverx.blog.exception.FailedUpdateObjectException;
 import com.leverx.blog.exception.NotFoundObjectException;
 import com.leverx.blog.mapper.CommonModelMapper;
+import com.leverx.blog.model.ResetPasswordEntity;
 import com.leverx.blog.repository.UserRepository;
 import com.leverx.blog.repository.redis.RedisRepository;
 import com.leverx.blog.service.mail.MailService;
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-//    @Transactional
+    @Transactional
     public void forgotPassword(ResetPasswordEntity resetPasswordEntity) {
         String email = resetPasswordEntity.getEmail();
         userRepository.findByEmail(email).ifPresentOrElse(user -> {

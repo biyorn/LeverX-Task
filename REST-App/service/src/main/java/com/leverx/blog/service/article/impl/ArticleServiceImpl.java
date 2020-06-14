@@ -46,12 +46,14 @@ public class ArticleServiceImpl implements ArticleService {
                 .collect(Collectors.toList());
     }
 
-    // Maybe, need to throw exception if user did not find!
     @Override
     @Transactional
     public ArticleDTO createArticle(String username, ArticleDTO articleDTO) {
         Article article = articleModelMapper.toEntity(articleDTO);
-        userRepository.findByEmail(username).ifPresent(article::setUserEntity);
+        userRepository.findByEmail(username).ifPresentOrElse(article::setUserEntity,
+                () -> {
+                    throw new NotFoundObjectException("User does not exist");
+                });
         LocalDateTime time = getCurrentTime();
         article.setCreatedAt(time);
         article.setUpdatedAt(time);

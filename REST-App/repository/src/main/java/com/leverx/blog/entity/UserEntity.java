@@ -31,6 +31,4 @@ public class UserEntity {
     private LocalDateTime createdAt;
     @Column(name = "active", nullable = false)
     private boolean isActive;
-//    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)
-//    private List<Article> articles;
 }

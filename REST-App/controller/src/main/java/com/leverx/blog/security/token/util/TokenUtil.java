@@ -21,8 +21,6 @@ public class TokenUtil {
     private String secret;
     @Value("${jwt.access-token-validity}")
     private long accessValidity;
-    @Value("${jwt.refresh-token-validity}")
-    private long refreshValidity;
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         String username = getUsernameFromToken(token);
@@ -45,11 +43,6 @@ public class TokenUtil {
     public String generateAccessToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         return doGenerateToken(claims, userDetails.getUsername(), accessValidity);
-    }
-
-    public String generateRefreshToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, userDetails.getUsername(), refreshValidity);
     }
 
     private Claims getAllClaimsFromToken(String token) {

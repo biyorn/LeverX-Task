@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private void checkUserStatus(UserEntity userEntity) {
         if (!userEntity.isActive()) {
-            throw new RuntimeException("Email [" + userEntity.getEmail() +"] is not confirmed");
+            throw new RuntimeException("Email [" + userEntity.getEmail() + "] is not confirmed");
         }
     }
 }

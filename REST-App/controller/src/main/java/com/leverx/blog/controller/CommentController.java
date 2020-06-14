@@ -1,6 +1,7 @@
 package com.leverx.blog.controller;
 
 import com.leverx.blog.dto.CommentDTO;
+import com.leverx.blog.dto.transfer.New;
 import com.leverx.blog.service.comment.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +42,8 @@ public class CommentController {
 
     @PostMapping
     @Secured(ROLE_USER)
-    public ResponseEntity<CommentDTO> addComment(@PathVariable int articleId, @RequestBody CommentDTO commentDTO) {
+    public ResponseEntity<CommentDTO> addComment(@PathVariable int articleId,
+                                                 @Validated(New.class) @RequestBody CommentDTO commentDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return ResponseEntity
                 .status(HttpStatus.CREATED)

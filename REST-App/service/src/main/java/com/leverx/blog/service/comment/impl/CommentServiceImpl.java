@@ -65,7 +65,7 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(() -> new NotFoundObjectException("Article did not find"));
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new NotFoundObjectException("Comment does not exist"));
-        if(isAccessible(comment, userEntity, article)) {
+        if (isAccessible(comment, userEntity, article)) {
             commentRepository.delete(comment);
         } else {
             throw new FailedUpdateObjectException("You have no rights");

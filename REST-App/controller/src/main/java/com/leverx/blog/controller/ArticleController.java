@@ -2,8 +2,9 @@ package com.leverx.blog.controller;
 
 import com.leverx.blog.dto.ArticleDTO;
 import com.leverx.blog.dto.SearchCriteriaDTO;
+import com.leverx.blog.dto.transfer.New;
+import com.leverx.blog.dto.transfer.Update;
 import com.leverx.blog.service.article.ArticleService;
-import com.leverx.blog.service.comment.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +31,6 @@ public class ArticleController {
 
     private static final String ROLE_USER = "ROLE_USER";
     private final ArticleService articleService;
-    private final CommentService commentService;
 
     @GetMapping
     public ResponseEntity<List<ArticleDTO>> getArticles(SearchCriteriaDTO searchCriteriaDTO) {
@@ -38,7 +39,7 @@ public class ArticleController {
 
     @PostMapping
     @Secured(ROLE_USER)
-    public ResponseEntity<ArticleDTO> createArticle(@RequestBody ArticleDTO articleDTO) {
+    public ResponseEntity<ArticleDTO> createArticle(@Validated(New.class) @RequestBody ArticleDTO articleDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -47,7 +48,8 @@ public class ArticleController {
 
     @PutMapping("/{id}")
     @Secured(ROLE_USER)
-    public ResponseEntity<ArticleDTO> updateArticle(@PathVariable int id, @RequestBody ArticleDTO articleDTO) {
+    public ResponseEntity<ArticleDTO> updateArticle(@PathVariable int id,
+                                                    @Validated(Update.class) @RequestBody ArticleDTO articleDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         articleDTO.setId(id);
         return ResponseEntity

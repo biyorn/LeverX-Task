@@ -24,7 +24,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         securedEnabled = true,
         jsr250Enabled = true
 )
-//@EnableGlobalAuthentication
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -38,13 +37,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity security) throws Exception {
-        security
-                //.httpBasic().and()
-                .csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/auth").anonymous()
-//                .anyRequest().authenticated()
-                //.and()
+        security.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

@@ -44,7 +44,6 @@ public class JpaConfig {
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         return dataSource;
-
     }
 
     @Bean
