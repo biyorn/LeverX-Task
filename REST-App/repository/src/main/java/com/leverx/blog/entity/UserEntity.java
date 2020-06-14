@@ -4,14 +4,11 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Entity
@@ -34,6 +31,6 @@ public class UserEntity {
     private LocalDateTime createdAt;
     @Column(name = "active", nullable = false)
     private boolean isActive;
-    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)
-    private List<Article> articles;
+//    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)
+//    private List<Article> articles;
 }

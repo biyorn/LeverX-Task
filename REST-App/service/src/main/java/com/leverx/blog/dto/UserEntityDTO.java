@@ -1,6 +1,7 @@
 package com.leverx.blog.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -16,6 +17,7 @@ public class UserEntityDTO {
     @Size(min = 3, max = 20, message = "First name cannot be less than 3 symbols")
     private String firstName;
     private String lastName;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @Email
     private String email;

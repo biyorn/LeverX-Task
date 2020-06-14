@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+//    @Transactional
     public void forgotPassword(ResetPasswordEntity resetPasswordEntity) {
         String email = resetPasswordEntity.getEmail();
         userRepository.findByEmail(email).ifPresentOrElse(user -> {

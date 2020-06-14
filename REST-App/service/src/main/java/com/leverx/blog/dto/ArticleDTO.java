@@ -1,10 +1,12 @@
 package com.leverx.blog.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.leverx.blog.entity.Comment;
 import com.leverx.blog.entity.enumeration.ArticleStatus;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class ArticleDTO {
@@ -18,4 +20,5 @@ public class ArticleDTO {
     private LocalDateTime createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime updatedAt;
+    private List<Comment> comments;
 }

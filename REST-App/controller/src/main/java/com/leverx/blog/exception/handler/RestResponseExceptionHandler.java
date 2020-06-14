@@ -1,7 +1,9 @@
 package com.leverx.blog.exception.handler;
 
 import com.leverx.blog.exception.FailedAddObjectException;
+import com.leverx.blog.exception.FailedDeleteObjectException;
 import com.leverx.blog.exception.FailedUpdateObjectException;
+import com.leverx.blog.exception.NotFoundObjectException;
 import com.leverx.blog.exception.UserException;
 import com.leverx.blog.exception.handler.model.ApiError;
 import org.springframework.http.HttpStatus;
@@ -40,4 +42,21 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
                 .body(new ApiError(message));
     }
 
+    @ExceptionHandler(NotFoundObjectException.class)
+    public ResponseEntity<?> handleNotFoundObject(NotFoundObjectException exception) {
+        String message = exception.getMessage();
+        logger.error(message, exception);
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ApiError(message));
+    }
+
+    @ExceptionHandler(FailedDeleteObjectException.class)
+    public ResponseEntity<?> handleFailedDeleteObject(FailedDeleteObjectException exception) {
+        String message = exception.getMessage();
+        logger.error(message, exception);
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(new ApiError(message));
+    }
 }

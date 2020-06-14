@@ -12,7 +12,7 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 @EnableRedisRepositories(basePackages = "com.leverx.blog.repository.redis")
 public class RedisConfig {
 
-    private static final String REDIS_KEY = "code";
+    //private static final String REDIS_KEY = "code";
     @Value("${redis.host.name}")
     private String hostName;
     @Value("${redis.port}")
@@ -31,7 +31,7 @@ public class RedisConfig {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory());
         template.setEnableTransactionSupport(true);
-        //template.expire(REDIS_KEY, 24, TimeUnit.HOURS);
+        //template.expire("code", 24, TimeUnit.HOURS);
         return template;
     }
 }
